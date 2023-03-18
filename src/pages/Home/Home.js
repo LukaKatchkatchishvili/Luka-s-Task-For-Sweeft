@@ -6,19 +6,20 @@ import ScrollToTop from "react-scroll-to-top";
 const Home = () => {
   const [card, setCard] = useState([]);
   const [page, setPage] = useState(15);
+  const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getCardData = async () => {
       const res = await fetch(
-        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/1/${page}`
+        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${pageNum}/${page}`
       );
       const data = await res.json();
       setCard(data.list);
       setLoading(false);
     };
     getCardData();
-  }, [page]);
+  }, [page, pageNum]);
 
   const InfiniteScroll = async () => {
     try {
@@ -33,11 +34,18 @@ const Home = () => {
       console.log("error");
     }
   };
+
   useEffect(() => {
     window.addEventListener("scroll", InfiniteScroll);
     return () => window.removeEventListener("scroll", InfiniteScroll);
   }, []);
 
+  useEffect(() => {
+    if (page === 100) {
+      setPage(0);
+      setPageNum((prev) => prev + 1);
+    }
+  }, [page]);
   return (
     <>
       <ScrollToTop

@@ -9,6 +9,7 @@ const SinglePage = () => {
   let { id } = useParams();
   const [Data, setData] = useState([]);
   const [page, setPage] = useState(10);
+  const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(true);
   const [friends, setFriends] = useState([]);
 
@@ -19,7 +20,7 @@ const SinglePage = () => {
         `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${id}`
       );
       const resFriends = await fetch(
-        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${id}/friends/1/${page}`
+        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${id}/friends/${pageNum}/${page}`
       );
       const data = await res.json();
       const dataFriends = await resFriends.json();
@@ -27,7 +28,7 @@ const SinglePage = () => {
       setFriends(dataFriends.list);
     };
     getCardData();
-  }, [page, location, id]);
+  }, [page, location, id,pageNum]);
   const InfiniteScroll = async () => {
     try {
       if (
@@ -45,6 +46,12 @@ const SinglePage = () => {
     window.addEventListener("scroll", InfiniteScroll);
     return () => window.removeEventListener("scroll", InfiniteScroll);
   }, []);
+   useEffect(() => {
+    if (page === 100) {
+      setPage(0);
+      setPageNum((prev) => prev + 1);
+    }
+  }, [page]);
   return (
     <>
       <ScrollToTop
