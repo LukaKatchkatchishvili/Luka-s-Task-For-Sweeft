@@ -20,7 +20,7 @@ const ItemCard = ({ myData }) => {
                   </div>
                   <p className="hover:opacity-75 text-gray-800 dark:text-gray-100 cursor-pointer">
                     <span className=" text-xl tracking-normal font-medium mb-1">
-                      {id}     {name} {lastName}
+                      {name} {lastName}
                     </span>
                   </p>
                   <p className="cursor-pointer flex text-gray-600 dark:text-gray-100 text-sm tracking-normal font-normal mb-3 text-center">

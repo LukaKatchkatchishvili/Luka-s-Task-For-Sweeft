@@ -48,7 +48,6 @@ const SinglePage = () => {
   }, []);
    useEffect(() => {
     if (page === 100) {
-      setPage(0);
       setPageNum((prev) => prev + 1);
     }
   }, [page]);
