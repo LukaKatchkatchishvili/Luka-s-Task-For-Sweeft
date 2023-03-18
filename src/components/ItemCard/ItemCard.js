@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ItemCard = ({ myData }) => {
-  const { id, name, lastName, imageUrl, title } = myData;
+  const { id, name, lastName, imageUrl, title} = myData;
   return (
     <>
       <Link to={`/user/${id}`} id={id}>
